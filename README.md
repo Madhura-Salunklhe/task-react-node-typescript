@@ -228,25 +228,25 @@ studentdb
 
 ## Login Page
 
-![Login Page](./screenshots/login form.PNG)
+![Login Page](./screenshots/loginform.PNG)
 
 ---
 
 ## Student Registration Page
 
-![Student Registration](./screenshots/student registration form.PNG)
+![Student Registration](./screenshots/studentregistrationform.PNG)
 
 ---
 
 ## Student Registered Page
 
-![Student Registered](./screenshots/student registered.PNG)
+![Student Registered](./screenshots/studentregistered.PNG)
 
 ---
 
 ## Student List Page
 
-![Student List](./screenshots/student list.PNG)
+![Student List](./screenshots/studentlist.PNG)
 
 ---
 
