@@ -224,6 +224,38 @@ studentdb
 
 ---
 
+# Application Screenshots
+
+## Login Page
+
+![Login Page](./screenshots/login form.PNG)
+
+---
+
+## Student Registration Page
+
+![Student Registration](./screenshots/student registration form.PNG)
+
+---
+
+## Student Registered Page
+
+![Student Registered](./screenshots/student registered.PNG)
+
+---
+
+## Student List Page
+
+![Student List](./screenshots/student list.PNG)
+
+---
+
+## MongoDB Database
+
+![MongoDB](./screenshots/mandodb.PNG)
+
+---
+
 # Author
 
 Madhura Salunkhe
