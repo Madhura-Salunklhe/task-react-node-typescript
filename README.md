@@ -1,8 +1,8 @@
-React + Node TypeScript Student Management System
+#React + Node TypeScript Student Management System
 
 A full-stack Student Management System built using React + TypeScript, Node.js + Express + TypeScript, and MongoDB with 2-Level AES Encryption implementation.
 
-Features
+#Features
 Login Form with Validation
 Student Registration Form
 CRUD Operations
