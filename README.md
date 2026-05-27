@@ -256,6 +256,40 @@ studentdb
 
 ---
 
+## Student Update Page
+
+![Student List](./screenshots/updated.PNG)
+
+---
+
+## Student Updated list
+
+Here I'm updated courseenrolled python with Java
+
+![Student List](./screenshots/updatedlist.PNG)
+
+---
+
+## Before Deleting Data Student List
+
+Here before deleting data I'm added new entry
+
+![Student List](./screenshots/list.PNG)
+
+---
+## Student Deleted
+
+Here before deleting data I'm added new entry
+
+![Student List](./screenshots/delete.PNG)
+
+---
+## After Deleting Student List
+
+![Student List](./screenshots/deletelist.PNG)
+
+---
+
 # Author
 
 Madhura Salunkhe
