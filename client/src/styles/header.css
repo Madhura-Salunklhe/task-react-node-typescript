@@ -1,0 +1,66 @@
+.dashboard-header{
+    width:100%;
+    max-width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:white;
+    border-radius:18px;
+
+    padding:25px 35px;
+
+    box-sizing:border-box;
+}
+
+.dashboard-header h2{
+
+    margin:0;
+    text-align:center;
+    font-size:30px;
+    font-weight:700;
+    margin-left: 500px;
+
+}
+
+.dashboard-header p{
+
+    margin-top:8px;
+
+    color:#777;
+
+}
+
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.profile-circle{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}

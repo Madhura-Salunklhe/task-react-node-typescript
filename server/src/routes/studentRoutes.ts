@@ -1,20 +1,24 @@
 import express from "express";
+import { authenticateToken } from "../middleware/authMiddleware";
 
 import {
   registerStudent,
   getStudents,
   deleteStudent,
   updateStudent,
+  getStudentById,
 } from "../controllers/studentController";
 
 const router = express.Router();
 
-router.post("/register", registerStudent);
+router.get("/students", authenticateToken, getStudents);
 
-router.get("/students", getStudents);
+router.post("/register", authenticateToken, registerStudent);
 
-router.delete("/student/:id", deleteStudent);
+router.get("/student/:id", authenticateToken, getStudentById);
 
-router.put("/student/:id", updateStudent);
+router.put("/student/:id", authenticateToken, updateStudent);
+
+router.delete("/student/:id", authenticateToken, deleteStudent);
 
 export default router;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { encryptField } from "../utils/crypto";
-import { Student } from "../types/student";
+import type { Student } from "../types/student";
 import {
   createStudent,
   updateStudent,
@@ -144,9 +144,12 @@ const handleSubmit = async (
       courseEnrolled: "",
       password: "",
     });
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error: any) {
+  alert(
+    error.response?.data?.message ||
+    "Something went wrong"
+  );
+}
 };
   return (
   <div className="form-container">

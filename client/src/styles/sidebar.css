@@ -1,0 +1,147 @@
+.sidebar {
+    width: 270px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background: #2563eb;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:50px;
+}
+
+.sidebar-menu{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.sidebar-menu li{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 18px;
+
+    border-radius:12px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.sidebar-menu li:hover{
+
+    background:white;
+
+    color:#2563eb;
+
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 18px;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+  margin-bottom: 12px;
+}
+
+.link:hover {
+  background: white;
+  color: #2563eb;
+}
+
+.link.active {
+  background: white;
+  color: #2563eb;
+}
+
+.sidebar-menu .active{
+
+    background:white;
+
+    color:#2563eb;
+
+}
+
+.sidebar-bottom{
+
+    margin-top:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.delete-account-btn,
+.logout-btn{
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+.delete-account-btn{
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+.logout-btn{
+
+    background:white;
+
+    color:#2563eb;
+
+}
+
+.delete-account-btn:hover{
+
+    background:#dc2626;
+
+}
+
+.logout-btn:hover{
+
+    background:#e5e7eb;
+
+}

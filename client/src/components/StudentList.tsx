@@ -1,6 +1,6 @@
 import { deleteStudent } from "../services/studentService";
-import { Student } from "../types/student";
-
+import type { Student } from "../types/student";
+import { useNavigate } from "react-router-dom";
 interface Props {
   students: Student[];
   fetchStudents: () => void;
@@ -12,6 +12,7 @@ const StudentList = ({
   fetchStudents,
   setSelectedStudent,
 }: Props) => {
+  const navigate = useNavigate();
 
   const handleDelete = async (id: string) => {
     try {
@@ -52,7 +53,9 @@ const StudentList = ({
               <td>
                 <button
                   className="edit-btn"
-                  onClick={() => setSelectedStudent(student)}
+                  onClick={() =>
+                    navigate(`/add-student/${student._id}`)
+                  }
                 >
                   Edit
                 </button>

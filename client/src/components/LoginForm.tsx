@@ -1,6 +1,11 @@
 import { useState } from "react";
+import axios from "axios";
 
-const LoginForm = () => {
+interface LoginFormProps {
+  onLogin: () => void;
+}
+
+const LoginForm = ({ onLogin }: LoginFormProps) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,23 +33,18 @@ const LoginForm = () => {
       password: "",
     };
 
-    // email validation
     if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
         formData.email
       )
     ) {
-      newErrors.email =
-        "Please enter valid email";
-
+      newErrors.email = "Please enter a valid email";
       valid = false;
     }
 
-    // password validation
     if (formData.password.length < 6) {
       newErrors.password =
         "Password must be at least 6 characters";
-
       valid = false;
     }
 
@@ -53,19 +53,41 @@ const LoginForm = () => {
     return valid;
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent
   ) => {
     e.preventDefault();
 
     if (!validate()) return;
 
-    alert("Login Successful");
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        formData
+      );
+
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
+      onLogin();
+    } catch (error: any) {
+      alert(
+        error.response?.data?.message ||
+          "Login Failed"
+      );
+    }
   };
 
   return (
     <div className="form-container">
-      <h2>Login Form</h2>
+      <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="form-grid">
@@ -73,11 +95,10 @@ const LoginForm = () => {
             <input
               type="email"
               name="email"
-              placeholder="Enter Email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
             />
-
             {errors.email && (
               <p className="error-text">
                 {errors.email}
@@ -89,11 +110,10 @@ const LoginForm = () => {
             <input
               type="password"
               name="password"
-              placeholder="Enter Password"
+              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
             />
-
             {errors.password && (
               <p className="error-text">
                 {errors.password}
