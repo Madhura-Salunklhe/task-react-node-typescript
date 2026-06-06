@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { encryptField } from "../utils/crypto";
+import { Student } from "../types/student";
+import {
+  createStudent,
+  updateStudent,
+} from "../services/studentService";
 
 interface Props {
-  selectedStudent: any;
+  selectedStudent: Student | null;
   fetchStudents: () => void;
   clearEdit: () => void;
 }
@@ -16,9 +20,20 @@ const StudentForm = ({
   useEffect(() => {
   if (selectedStudent) {
     setFormData(selectedStudent);
+  } else {
+    setFormData({
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+      dob: "",
+      gender: "",
+      address: "",
+      courseEnrolled: "",
+      password: "",
+    });
   }
 }, [selectedStudent]);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Student>({
     fullName: "",
     email: "",
     phoneNumber: "",
@@ -102,18 +117,17 @@ const handleSubmit = async (
 
     // EDIT MODE
     if (selectedStudent) {
-      response = await axios.put(
-        `http://localhost:5000/api/student/${selectedStudent._id}`,
-        encryptedData
-      );
+      response = await updateStudent(
+  selectedStudent._id!,
+  encryptedData as Student
+);
 
       clearEdit();
     } else {
       // CREATE MODE
-      response = await axios.post(
-        "http://localhost:5000/api/register",
-        encryptedData
-      );
+      response = await createStudent(
+  encryptedData as Student
+);
     }
 
     alert(response.data.message);
