@@ -14,8 +14,13 @@ A full-stack Student Management System built using **React + TypeScript**, **Nod
   - Update Student
   - Delete Student
 - Frontend AES Encryption
+- Protected Frontend Pages
+- Protected API Routes
+- JWT Authentication
 - Backend AES Encryption
 - MongoDB Integration
+- Delete Own Account
+- Immediate Session Termination After Account Deletion
 - Responsive UI
 - TypeScript Support
 
@@ -228,25 +233,26 @@ studentdb
 
 ## Login Page
 
-![Login Page](./screenshots/loginform.PNG)
+![Login Page](./screenshots/login.PNG)
 
 ---
 
-## Student Registration Page
+## Dashboard
+after login dashboard page is shown with student list
 
-![Student Registration](./screenshots/studentregistrationform.PNG)
-
----
-
-## Student Registered Page
-
-![Student Registered](./screenshots/studentregistered.PNG)
+![Student Registration](./screenshots/dashboard.PNG)
 
 ---
 
-## Student List Page
+## Student Registere Page
 
-![Student List](./screenshots/studentlist.PNG)
+![Student Registered](./screenshots/studregister.PNG)
+
+---
+
+## Student List Page After Registration
+
+![Student List](./screenshots/afterregister.PNG)
 
 ---
 
@@ -258,15 +264,14 @@ studentdb
 
 ## Student Update Page
 
-![Student List](./screenshots/updated.PNG)
+![Student List](./screenshots/update.PNG)
 
 ---
 
 ## Student Updated list
 
-Here I'm updated courseenrolled python with Java
 
-![Student List](./screenshots/updatedlist.PNG)
+![Student List](./screenshots/uplist.PNG)
 
 ---
 
@@ -287,6 +292,16 @@ Here before deleting data I'm added new entry
 ## After Deleting Student List
 
 ![Student List](./screenshots/deletelist.PNG)
+
+---
+## Delete Account
+
+![Student List](./screenshots/deleteaccount.PNG)
+
+---
+## After Delete Account
+After delete account it shows login form . 
+![Student List](./screenshots/afterdelete.PNG)
 
 ---
 
