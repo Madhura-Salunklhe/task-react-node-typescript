@@ -15,7 +15,11 @@ router.get("/students", authenticateToken, getStudents);
 
 router.post("/register", authenticateToken, registerStudent);
 
-router.get("/student/:id", authenticateToken, getStudentById);
+router.get(
+  "/student/:id",
+  authenticateToken,
+  getStudentById
+);
 
 router.put("/student/:id", authenticateToken, updateStudent);
 

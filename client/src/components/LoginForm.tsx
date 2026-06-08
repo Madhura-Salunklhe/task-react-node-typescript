@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "../styles/login.css";
 
 interface LoginFormProps {
   onLogin: () => void;
@@ -86,51 +87,62 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Login</h2>
+  <div className="login-page">
+    <div className="login-card">
+
+      <div className="login-header">
+        <h1>Student CMS</h1>
+        <p>Secure Student Management System</p>
+      </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="form-grid">
-          <div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <p className="error-text">
-                {errors.email}
-              </p>
-            )}
-          </div>
+        <div className="input-group">
+          <label>Email Address</label>
 
-          <div>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {errors.password && (
-              <p className="error-text">
-                {errors.password}
-              </p>
-            )}
-          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+
+          {errors.email && (
+            <p className="error-text">
+              {errors.email}
+            </p>
+          )}
+        </div>
+
+        <div className="input-group">
+          <label>Password</label>
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+
+          {errors.password && (
+            <p className="error-text">
+              {errors.password}
+            </p>
+          )}
         </div>
 
         <button
           type="submit"
-          className="submit-btn"
+          className="login-btn"
         >
           Login
         </button>
       </form>
+
     </div>
-  );
+  </div>
+);
 };
 
 export default LoginForm;

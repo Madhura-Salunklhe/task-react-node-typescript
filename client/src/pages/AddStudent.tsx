@@ -7,28 +7,53 @@ import StudentForm from "../components/StudentForm";
 
 import type { Student } from "../types/student";
 import { useParams } from "react-router-dom";
+import { decryptField } from "../utils/crypto";
 
 const AddStudent = () => {
+
+
     const { id } = useParams();
-    console.log(id);
 
     const [selectedStudent, setSelectedStudent] =
         useState<Student | null>(null);
 
-    const fetchStudent = async () => {
-        if (!id) return;
-
-        try {
-            const res = await getStudentById(id);
-            setSelectedStudent(res.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
     useEffect(() => {
+        const fetchStudent = async () => {
+            if (!id) return;
+
+            try {
+                const response =
+                    await getStudentById(id);
+
+                const student = response.data;
+
+                setSelectedStudent({
+                    ...student,
+
+                    fullName: decryptField(student.fullName),
+                    email: decryptField(student.email),
+                    phoneNumber: decryptField(
+                        student.phoneNumber
+                    ),
+                    dob: decryptField(student.dob),
+                    gender: decryptField(student.gender),
+                    address: decryptField(student.address),
+                    courseEnrolled: decryptField(
+                        student.courseEnrolled
+                    ),
+                    password: decryptField(
+                        student.password
+                    ),
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         fetchStudent();
     }, [id]);
+
+
 
     const clearEdit = () => {
         setSelectedStudent(null);
@@ -50,8 +75,10 @@ const AddStudent = () => {
 
                     <StudentForm
                         selectedStudent={selectedStudent}
-                        fetchStudents={() => {}}
-                        clearEdit={clearEdit}
+                        fetchStudents={() => { }}
+                        clearEdit={() =>
+                            setSelectedStudent(null)
+                        }
                     />
 
                 </div>

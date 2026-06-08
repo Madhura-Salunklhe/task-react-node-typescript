@@ -54,8 +54,16 @@ const StudentList = ({
                 <button
                   className="edit-btn"
                   onClick={() =>
-                    navigate(`/add-student/${student._id}`)
-                  }
+  navigate(
+    `/add-student/${student._id}`,
+    {
+      state: {
+        student,
+      },
+    }
+  )
+}
+                  
                 >
                   Edit
                 </button>

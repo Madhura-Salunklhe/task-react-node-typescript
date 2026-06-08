@@ -19,6 +19,7 @@ const StudentForm = ({
 }: Props) => {
   useEffect(() => {
   if (selectedStudent) {
+    console.log(selectedStudent);
     setFormData(selectedStudent);
   } else {
     setFormData({

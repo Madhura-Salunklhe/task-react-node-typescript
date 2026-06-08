@@ -23,25 +23,27 @@ const Dashboard = ({ onLogout }: DashboardProps) => {
   const fetchStudents = async () => {
     try {
       const response = await getStudents();
+      const decryptedStudents = response.data.map(
+  (student: Student) => ({
+    ...student,
+
+    fullName: decryptField(student.fullName),
+    email: decryptField(student.email),
+    phoneNumber: decryptField(student.phoneNumber),
+    dob: decryptField(student.dob),
+    gender: decryptField(student.gender),
+    address: decryptField(student.address),
+    courseEnrolled: decryptField(
+      student.courseEnrolled
+    ),
+    password: decryptField(student.password),
+  })
+);
+
+setStudents(decryptedStudents);
       console.log("API Response:", response.data);
 
-      const decryptedStudents = response.data.map(
-        (student: Student) => ({
-          ...student,
-          fullName: decryptField(student.fullName),
-          email: decryptField(student.email),
-          phoneNumber: decryptField(student.phoneNumber),
-          dob: decryptField(student.dob),
-          gender: decryptField(student.gender),
-          address: decryptField(student.address),
-          courseEnrolled: decryptField(
-            student.courseEnrolled
-          ),
-          password: decryptField(student.password),
-        })
-      );
-
-      setStudents(decryptedStudents);
+     
     } catch (error) {
       console.log(error);
     }

@@ -31,5 +31,6 @@ export const updateStudent = (
 export const deleteStudent = (id: string) =>
   api.delete(`/student/${id}`);
 
-export const getStudentById = (id: string) =>
-  api.get(`/student/${id}`);
+export const getStudentById = (
+  id: string
+) => api.get(`/student/${id}`);

@@ -253,13 +253,14 @@ export const updateStudent = async (
       password,
     } = req.body;
 
-    const emailHash = generateEmailHash(email);
+    const encryptedEmail =
+      encryptData(email);
 
-    // Check if another student already has this email
-    const existingStudent = await Student.findOne({
-      emailHash,
-      _id: { $ne: id },
-    });
+    const existingStudent =
+      await Student.findOne({
+        email: encryptedEmail,
+        _id: { $ne: id },
+      });
 
     if (existingStudent) {
       return res.status(400).json({
@@ -269,13 +270,14 @@ export const updateStudent = async (
 
     await Student.findByIdAndUpdate(id, {
       fullName: encryptData(fullName),
-      email: encryptData(email),
-      emailHash,
+      email: encryptedEmail,
       phoneNumber: encryptData(phoneNumber),
       dob: encryptData(dob),
       gender: encryptData(gender),
       address: encryptData(address),
-      courseEnrolled: encryptData(courseEnrolled),
+      courseEnrolled: encryptData(
+        courseEnrolled
+      ),
       password: encryptData(password),
     });
 
@@ -290,15 +292,22 @@ export const updateStudent = async (
   }
 };
 
-export const getStudentById = async (req: Request, res: Response) => {
+export const getStudentById = async (
+  req: Request,
+  res: Response
+) => {
   try {
-    const student = await Student.findById(req.params.id);
+    const student = await Student.findById(
+      req.params.id
+    );
 
     if (!student) {
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({
+        message: "Student not found",
+      });
     }
 
-    const decryptedStudent = {
+    res.status(200).json({
       _id: student._id,
 
       fullName: decryptData(student.fullName),
@@ -307,11 +316,11 @@ export const getStudentById = async (req: Request, res: Response) => {
       dob: decryptData(student.dob),
       gender: decryptData(student.gender),
       address: decryptData(student.address),
-      courseEnrolled: decryptData(student.courseEnrolled),
+      courseEnrolled: decryptData(
+        student.courseEnrolled
+      ),
       password: decryptData(student.password),
-    };
-
-    res.json(decryptedStudent);
+    });
   } catch (error) {
     res.status(500).json({
       message: "Server Error",
