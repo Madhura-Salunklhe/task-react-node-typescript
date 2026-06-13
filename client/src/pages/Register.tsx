@@ -1,23 +1,23 @@
 import { useState } from "react";
 import axios from "axios";
-import "../styles/login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-interface LoginFormProps {
-  onLogin: () => void;
-}
+import "../styles/login.css";
 
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const Register = () => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] =
+    useState(false);
+
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
-  const [showPassword, setShowPassword] =
-    useState(false);
-
   const [errors, setErrors] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -35,16 +35,23 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
     let valid = true;
 
     const newErrors = {
+      name: "",
       email: "",
       password: "",
     };
+
+    if (formData.name.trim() === "") {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
 
     if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
         formData.email
       )
     ) {
-      newErrors.email = "Please enter a valid email";
+      newErrors.email =
+        "Please enter a valid email";
       valid = false;
     }
 
@@ -68,25 +75,17 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "http://localhost:5000/api/auth/register",
         formData
       );
 
-      localStorage.setItem(
-        "token",
-        response.data.token
-      );
+      alert(response.data.message);
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.user)
-      );
-
-      onLogin();
+      navigate("/");
     } catch (error: any) {
       alert(
         error.response?.data?.message ||
-        "Login Failed"
+          "Registration Failed"
       );
     }
   };
@@ -94,13 +93,31 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   return (
     <div className="login-page">
       <div className="login-card">
-
         <div className="login-header">
           <h1>Student CMS</h1>
-          <p>Secure Student Management System</p>
+
+          <p>Create your account</p>
         </div>
 
         <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Full Name</label>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Full Name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+
+            {errors.name && (
+              <p className="error-text">
+                {errors.name}
+              </p>
+            )}
+          </div>
+
           <div className="input-group">
             <label>Email Address</label>
 
@@ -126,6 +143,7 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
+                placeholder="Enter Password"
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -149,23 +167,21 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
             type="submit"
             className="login-btn"
           >
-            Login
+            Register
           </button>
-
-          <div className="auth-footer">
-            <p>
-              New Here?{" "}
-              <Link to="/register">
-                Register Here
-              </Link>
-            </p>
-          </div>
         </form>
 
-
+        <div className="auth-footer">
+          <p>
+            Already have an account?{" "}
+            <Link to="/">
+              Login Here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default Register;

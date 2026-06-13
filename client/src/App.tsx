@@ -1,88 +1,76 @@
-// import { useEffect, useState } from "react";
+// import { useState } from "react";
 
-// import StudentForm from "./components/StudentForm";
-// import StudentList from "./components/StudentList";
 // import LoginForm from "./components/LoginForm";
 
-// import { getStudents } from "./services/studentService";
-// import { decryptField } from "./utils/crypto";
-// import type { Student } from "./types/student";
+// import { Routes, Route, Navigate } from "react-router-dom";
+
+// import Dashboard from "./pages/Dashboard";
+// import Students from "./pages/Students";
+// import AddStudent from "./pages/AddStudent";
+// import Register from "./pages/Register";
 
 // function App() {
-//   const [students, setStudents] = useState<Student[]>([]);
-//   const [selectedStudent, setSelectedStudent] =
-//     useState<Student | null>(null);
-
 //   const [isLoggedIn, setIsLoggedIn] = useState(
 //     !!localStorage.getItem("token")
 //   );
 
-//   const fetchStudents = async () => {
-//     try {
-//       const response = await getStudents();
-
-//       const decryptedStudents = response.data.map(
-//         (student: Student) => ({
-//           ...student,
-//           fullName: decryptField(student.fullName),
-//           email: decryptField(student.email),
-//           phoneNumber: decryptField(student.phoneNumber),
-//           dob: decryptField(student.dob),
-//           gender: decryptField(student.gender),
-//           address: decryptField(student.address),
-//           courseEnrolled: decryptField(
-//             student.courseEnrolled
-//           ),
-//           password: decryptField(student.password),
-//         })
-//       );
-
-//       setStudents(decryptedStudents);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (isLoggedIn) {
-//       fetchStudents();
-//     }
-//   }, [isLoggedIn]);
-
-//   const clearEdit = () => {
-//     setSelectedStudent(null);
-//   };
-
 //   if (!isLoggedIn) {
 //     return (
-//       <LoginForm onLogin={() => setIsLoggedIn(true)} />
+//       <LoginForm
+//         onLogin={() => setIsLoggedIn(true)}
+//       />
 //     );
 //   }
 
 //   return (
-//     <div className="container">
-//       <StudentForm
-//         selectedStudent={selectedStudent}
-//         fetchStudents={fetchStudents}
-//         clearEdit={clearEdit}
+
+//     <Routes>
+
+//       <Route
+//         path="/dashboard"
+//         element={
+//           <Dashboard
+//             onLogout={() =>
+//               setIsLoggedIn(false)
+//             }
+//           />
+//         }
 //       />
 
-//       <StudentList
-//         students={students}
-//         fetchStudents={fetchStudents}
-//         setSelectedStudent={setSelectedStudent}
+//       <Route
+//         path="/students"
+//         element={<Students />}
 //       />
-//     </div>
+
+//       <Route
+//         path="/add-student/:id?"
+//         element={<AddStudent />}
+//       />
+
+//       <Route
+//         path="*"
+//         element={
+//           <Navigate to="/dashboard" />
+//         }
+//       />
+     
+
+//     </Routes>
+
 //   );
 // }
 
 // export default App;
 
 import { useState } from "react";
+import {
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import LoginForm from "./components/LoginForm";
-
-import { Routes, Route, Navigate } from "react-router-dom";
+import Register from "./pages/Register";
 
 import Dashboard from "./pages/Dashboard";
 import Students from "./pages/Students";
@@ -93,48 +81,92 @@ function App() {
     !!localStorage.getItem("token")
   );
 
-  if (!isLoggedIn) {
-    return (
-      <LoginForm
-        onLogin={() => setIsLoggedIn(true)}
-      />
-    );
-  }
-
   return (
-
     <Routes>
+
+      {/* ---------- Public Routes ---------- */}
+
+      <Route
+        path="/login"
+        element={
+          isLoggedIn ? (
+            <Navigate to="/dashboard" />
+          ) : (
+            <LoginForm
+              onLogin={() =>
+                setIsLoggedIn(true)
+              }
+            />
+          )
+        }
+      />
+
+      <Route
+        path="/register"
+        element={
+          isLoggedIn ? (
+            <Navigate to="/dashboard" />
+          ) : (
+            <Register />
+          )
+        }
+      />
+
+      {/* ---------- Protected Routes ---------- */}
 
       <Route
         path="/dashboard"
         element={
-          <Dashboard
-            onLogout={() =>
-              setIsLoggedIn(false)
-            }
-          />
+          isLoggedIn ? (
+            <Dashboard
+              onLogout={() =>
+                setIsLoggedIn(false)
+              }
+            />
+          ) : (
+            <Navigate to="/login" />
+          )
         }
       />
 
       <Route
         path="/students"
-        element={<Students />}
+        element={
+          isLoggedIn ? (
+            <Students />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
       />
 
       <Route
         path="/add-student/:id?"
-        element={<AddStudent />}
+        element={
+          isLoggedIn ? (
+            <AddStudent />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
       />
+
+      {/* ---------- Default Route ---------- */}
 
       <Route
         path="*"
         element={
-          <Navigate to="/dashboard" />
+          <Navigate
+            to={
+              isLoggedIn
+                ? "/dashboard"
+                : "/login"
+            }
+          />
         }
       />
 
     </Routes>
-
   );
 }
 

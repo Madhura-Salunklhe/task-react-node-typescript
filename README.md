@@ -125,6 +125,18 @@ MongoDB
 
 # API Routes
 
+## New Registration
+
+```http
+POST /api/auth/register
+```
+
+## Login
+
+```http
+POST /api/auth/login
+```
+
 ## Register Student
 
 ```http
@@ -147,6 +159,12 @@ PUT /api/student/:id
 
 ```http
 DELETE /api/student/:id
+```
+
+## Delete Account
+
+```http
+DELETE /api/auth/delete-account
 ```
 
 ---
@@ -202,6 +220,8 @@ PORT=5000
 
 MONGO_URI=mongodb://127.0.0.1:27017/studentdb
 
+JWT_SECRET=my_super_secret_key
+
 FRONTEND_SECRET=myfrontendsecret
 
 BACKEND_SECRET=mybackendsecret
@@ -231,9 +251,15 @@ studentdb
 
 # Application Screenshots
 
+## New Registration
+
+![New Registration](./screenshots/new.PNG)
+
+---
+
 ## Login Page
 
-![Login Page](./screenshots/login.PNG)
+![Login Page](./screenshots/newlogin.PNG)
 
 ---
 
